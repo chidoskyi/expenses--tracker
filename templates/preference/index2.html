@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- <div class="container mt-3"> -->
+    <div class="container-fluid mt-4">
+    <h5>Preferred Currency</h5>
+    <form action="{% url 'preferences' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <select name="currency" class="form-select" aria-label="Default select example" style="cursor: pointer;">
+                {% if user_preferences.currency %}
+                <option name="currency" selected>{{user_preferences.currency}}</option>
+                {% endif %}
+                {% for currency in currency_data %}
+                <option name="currency"  value="{{currency.name}} - {{currency.value}}">{{currency.name}} - {{currency.value}}</option>
+                {% endfor %}
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" style="border-top-right-radius: 6px; border-bottom-right-radius: 6px;" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+<!-- </div> -->
+
+{% endblock content %}

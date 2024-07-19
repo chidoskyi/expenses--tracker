@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Output</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+        }
+    
+        @page {
+            @top-center {
+                content: "COMPANY NAME";
+            }
+    
+            @bottom-right {
+                content: "Page " counter(page) " of " counter(pages);
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Expenses Report</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ expense.amount }}</td>
+                    <td>{{ expense.description }}</td>
+                    <td>{{ expense.category }}</td>
+                    <td>{{ expense.date }}</td>
+                </tr>
+            {% endfor %}
+            <tr></tr>
+            <tr mt-4>
+                <td>Total:</td>
+                <td>{{ total.amount__sum }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

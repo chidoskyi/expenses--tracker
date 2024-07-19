@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12"
+        style="align-items: center; display: flex; border: 1px solid #dbdbdb; background-color: #e6e1e1; height: 40px;">
+        
+        <nav aria-label="breadcrumb d-flex align-items-center justify-content-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="">Expenses</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit expenses</li>
+                </ol>
+                </nav>
+                </div>
+                {% include 'partials/_messages.html' %}
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <form action="{% url 'edit-expenses' expenses.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group mt-3">
+                                <label  class="form-label" for="number">Amount</label>
+                                <input type="number" name="amount" id="" class="form-control form-control-sm" value="{{ values.amount }}">
+                                </div>
+            <div class="form-group mt-3">
+                <label  class="form-label" for="text">Description</label>
+                <textarea type="text" id="description" name="description" rows="3" id="" class="form-control " value="{{values.description}}">{{values.description}}</textarea>
+            </div>
+            <div class="form-group mt-3">
+                <label  class="form-label" for="">Category</label>
+                <select name="category" class="form-select form-select-sm"  aria-label="Small select example" style="cursor: pointer;" id="">
+
+                        {% for category in categories %}
+                                <option value="{{ category.id }}" class="form-control form-control-sm"
+                                {% if category.id == expenses.category.id %}
+                                selected
+                                {% endif %}
+                                >
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                   
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <label  class="form-label" for="number">Date of Expense</label>{% comment %} 
+                <input type="date" value="{{values.date}}" name="date" id="" style="cursor: pointer;" class="form-control form-control-sm">
+                you can also use this {% endcomment %}
+                <input type="date" value="{{ values.date|date:"Y-m-d" }}" name="date" id="" style="cursor: pointer;" class="form-control form-control-sm">
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Update" class="btn btn-primary btn-sm">
+            </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock content %}

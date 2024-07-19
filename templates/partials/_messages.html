@@ -1,0 +1,13 @@
+{% comment %} {% load static %} {% endcomment %}
+
+{% if messages %}
+			{% for msg in messages %}
+				<!-- pop up-->
+				<div class="text-center alert alert-{{ msg.tags }} alert-dismissible fade show mb-0 message-content mt-3" role="alert">
+					<strong class="text-center">{{ msg|title }}</strong> 
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				<!-- pop up ends-->
+			{% endfor %}
+{% endif %}
+

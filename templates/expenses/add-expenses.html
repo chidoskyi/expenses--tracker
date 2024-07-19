@@ -1,21 +1,63 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Expenses List</h1>
-    
-    <ul class="list-group">
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-        <li class="list-group-item">Bought Bear</li>
-    </ul>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12"
+        style="align-items: center; display: flex; border: 1px solid #dbdbdb; background-color: #e6e1e1; height: 40px;">
+        
+        <nav aria-label="breadcrumb d-flex align-items-center justify-content-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="">Expenses</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My expenses</li>
+                </ol>
+                </nav>
+                </div>
+                <div class="card mt-4">
+        {% include 'partials/_messages.html' %}
+        <div class="card-body">
+            <form action="{% url 'add-expenses' %}" method="post">
+                {% csrf_token %}
+            <div class="form-group mt-3">
+                <label  class="form-label" for="number">Amount</label>
+                <input type="number" name="amount" id="" class="form-control form-control-sm" value="{{ values.amount }}">
+            </div>
+            <div class="form-group mt-3">
+                <label  class="form-label" for="text">Description</label>
+                <textarea type="text" name="description" rows="3" id="" class="form-control " value="{{values.description}}"></textarea>
+            </div>
+            <div class="form-group mt-3">
+                <label  class="form-label" for="">Category</label>
+                <select name="category" class="form-select form-select-sm"  aria-label="Small select example" style="cursor: pointer;" id="">
+                    {% if values.category %}
+                        {% for category in categories %}
+                                <option value="{{ category.id }}" class="form-control form-control-sm"
+                                    {% if values.category == category.id %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                    {% else %}
+                        <option value="" selected disabled>Select a category</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" class="form-control form-control-sm">{{ category.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+            </div>
+            <div class="form-group mt-3">
+                <label  class="form-label" for="number">Date of Expense</label>
+                <input type="date" name="date" id="" style="cursor: pointer;" class="form-control form-control-sm">
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Submit" class="btn btn-primary btn-sm">
+            </div>
+    </form>
+</div>
+</div>
+</div>
+</div>
+
 {% endblock content %}
